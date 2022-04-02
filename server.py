@@ -32,13 +32,20 @@ def create_plant():
     return jsonify({"result": "ok"})
 
 
+@app.route('/create/garden', methods=['POST'])
+def create_garden():
+    x = data = request.get_json()
+    oId = dbGardens.insert_one(x)
+    return jsonify({"result": "ok"})
+
+
 @app.route('/data/seeds')
 def show_data():
     allSeeds = list(dbSeeds.find({}, {"_id": 0}))
     return json.dumps(allSeeds)
 
 
-@app.route('/user/<int:id>/gardens')
+@app.route('/data/<int:id>/gardens')
 def show_gardens(id):
     userGardens = list(dbGardens.find({"user": id}, {"_id": 0, "user": 0}))
     return json.dumps(userGardens)

@@ -4,6 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
 import { Seed } from './model/seed';
+import { Garden, Plant } from './model/garden';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +29,18 @@ export class DataService {
     const body = JSON.stringify(seed);
     console.log(body);
     return this.http.post(this.baseURL + "/create/seed", body, {headers});
+  }
+
+  setGarden(garden: Garden): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'POST'
+    });
+
+    const body = JSON.stringify(garden);
+    console.log(body);
+    return this.http.post(this.baseURL + '/create/garden', body, {headers});
   }
 }
