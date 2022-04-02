@@ -1,0 +1,38 @@
+<div>
+  <label>Seed Type:</label>&nbsp; <input [(ngModel)]="seed.type" /><br />
+  <label>Variety:</label>&nbsp; <input [(ngModel)]="seed.variety" /><br />
+  <label>Days to Maturity</label>&nbsp; <input type="number" [(ngModel)]="seed.maturity_days" /><br />
+  <p></p>
+</div>
+<div class="form-group">
+  <button type="button" (click)="addSeed()">Add Seed</button>&nbsp;
+  <button type="button" (click)="getSeeds()">Get Seeds</button>
+  <p></p>
+</div>
+
+<div *ngIf="loading">Loading...</div>
+
+<div *ngIf="errMsg" class="alert alert-warning">
+  <strong>Warning!</strong>{{errMsg | json}}
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Variety</th>
+      <th>Days to Maturity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let s of allSeeds;">
+      <td>{{s.type}}</td>
+      <td>{{s.variety}}</td>
+      <td>{{s.maturity_days}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre>
+  {{allSeeds | json}}
+</pre>
