@@ -1,12 +1,16 @@
-# sudo pip3 install Flask-PyMongo
-# sudo pip3 install pymongo[srv]
-# sudo pip3 install -U flask-cors
-# sudo pip3 install python-bsonjs
+# Install packages to venv
+# python -m pip install Flask-PyMongo
+# python -m pip install pymongo[srv]
+# python -m pip install -U flask-cors
+# python -m pip install python-bsonjs
+
+# Activate venv: .venv\scripts\activate
 
 from flask import Flask, request, json, jsonify
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from bson import json_util
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -44,7 +48,7 @@ def create_garden():
 @app.route('/update/garden', methods=['POST'])
 def update_garden():
     data = request.get_json()
-    gardenQuery = {"user": data['user'], "name": data['name']}
+    gardenQuery = {"_id": ObjectId(oid=str(data['_id']['$oid']))}
     newValue = {"$set": {"plants": data['plants']}}
     oId = dbGardens.update_one(gardenQuery, newValue)
     print(oId)
@@ -59,10 +63,10 @@ def show_data():
 
 @app.route('/data/<string:user>/gardens')
 def show_gardens(user):
-    userGardens = list(dbGardens.find({"user": user}, {"_id": 0}))
-    #userGardens = list(dbGardens.find({"user": user}, {"user": 0}))
-    return json.dumps(userGardens)
-    # return json_util.dumps(userGardens)
+    #userGardens = list(dbGardens.find({"user": user}, {"_id": 0}))
+    userGardens = list(dbGardens.find({"user": user}, {}))
+    # return json.dumps(userGardens)
+    return json_util.dumps(userGardens)
 
 
 if __name__ == '__main__':
