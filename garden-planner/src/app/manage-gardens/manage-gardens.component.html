@@ -1,19 +1,22 @@
 <div>
   <h2>My Gardens</h2>
-  <button type="button" (click)="showAddGarden=!showAddGarden">Add New Garden</button>
-  <div *ngIf="showAddGarden" [@slideInOut]>
+  <div class="clickable" (click)="showAddGarden=!showAddGarden">
+    <span *ngIf="showAddGarden; else plus">-</span>
+    <ng-template #plus>+</ng-template>
+    Add New Garden
+  </div>
+  <div *ngIf="showAddGarden">
     <label>Garden Name:</label> &nbsp;<input [(ngModel)]="garden.name" />
     <button type="button" (click)="addGarden()">Add</button>
   </div>
+
   <div></div>
-  <label>Plant Type:</label>&nbsp;
-  <span *ngIf="seedsLoading">(loading...)</span>
-  <select [(ngModel)]="plant.type">
-    <option *ngFor="let seed of allSeeds">{{seed.type}}</option>
-  </select>&nbsp;
-  <button type="button" (click)="showPanel=!showPanel">+</button>
-  <div *ngIf="showPanel" [@slideInOut]>
-    <p>Hey now</p>
-    <p>Here I am</p>
+
+  <div *ngFor="let g of allUserGardens">
+    <app-garden-view [garden]="g"></app-garden-view>
   </div>
+  <hr>
+
+  <div></div>
+
 </div>

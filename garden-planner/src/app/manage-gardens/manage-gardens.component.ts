@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { Seed } from '../model/seed';
-import { Garden, Plant } from '../model/garden';
+import { Garden } from '../model/garden';
 
 @Component({
   selector: 'app-manage-gardens',
@@ -9,27 +8,28 @@ import { Garden, Plant } from '../model/garden';
   styleUrls: ['./manage-gardens.component.css']
 })
 export class ManageGardensComponent implements OnInit {
-  allSeeds: Seed[];
+
+  allUserGardens: Garden[];
+  gardensLoading: boolean= false;
+
   garden = new Garden;
-  plant = new Plant;
   showAddGarden: boolean = false;
-  showPanel: boolean = false;
-  seedsLoading: boolean = false;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.getSeeds();
     this.garden.user = "kentw@test.ca";
+    this.getGardens();
    }
 
 
-  getSeeds() {
-    this.seedsLoading = true;
-    this.dataService.getSeeds()
+
+  getGardens() {
+    this.gardensLoading = true;
+    this.dataService.getUserGardens("kentw@test.ca")
       .subscribe((response) => {
-        this.allSeeds = response;
-        this.seedsLoading = false;
+        this.allUserGardens = response;
+        this.gardensLoading = false;
       })
   }
 
@@ -37,7 +37,7 @@ export class ManageGardensComponent implements OnInit {
     this.dataService.setGarden(this.garden)
       .subscribe(data => {
         console.log(data);
-        // this.refreshGardens()
+        this.getGardens();
         this.showAddGarden = false;
       })
   }

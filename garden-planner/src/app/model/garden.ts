@@ -7,7 +7,7 @@ export class Garden {
 }
 
 export class Plant {
-  type: Seed;
-  plant_date: Date;
-  harvest_date: Date;
+  seed = new Seed;
+  plant_date: string;
+  harvest_date: string;
 }

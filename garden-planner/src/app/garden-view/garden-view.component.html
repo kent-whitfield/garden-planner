@@ -1,0 +1,74 @@
+<hr>
+<div class="garden-name">{{garden.name}}</div>
+<div *ngIf="garden.plants.length === 0">No Plants in this Garden</div>
+
+<table *ngIf="garden.plants.length" class="table">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Variety</th>
+      <th>Plant Date</th>
+      <th>Harvest Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of garden.plants">
+      <td>{{p.seed.type}}</td>
+      <td>{{p.seed.variety}}</td>
+      <td>{{p.plant_date}}</td>
+      <td>{{p.harvest_date}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="clickable" (click)="showAddPlant=!showAddPlant">
+  <span *ngIf="showAddPlant; else plus">-</span>
+  <ng-template #plus>+</ng-template>
+  Plant Some Seeds
+</div>
+
+<div class="flex-container" *ngIf="showAddPlant">
+
+  <div class="flex1">
+    <label>Plant Type:</label>&nbsp;
+    <span *ngIf="typesLoading">(loading...)</span>
+    <select (change)="seedTypeChange()" [(ngModel)]="plant.seed.type">
+      <option *ngFor="let t of seedTypes" value="{{t}}">{{t}}</option>
+    </select>
+  </div>
+
+  <div class="flex1">
+    <label>Variety:</label>&nbsp;
+    <select (change)="seedVarietyChange()" [(ngModel)]="plant.seed.variety">
+      <option *ngFor="let v of seedVarieties" value="{{v}}">{{v}}</option>
+    </select>&nbsp;
+    <div class="clickable" (click)="showAddType=!showAddType">
+      <span *ngIf="showAddType; else plus">-</span>
+      Add Seed Type
+    </div>
+  </div>
+
+  <div class="flex1">
+    <label>Date Planted:</label>
+    <input type="date" (change)="plantDateChange()" [(ngModel)]="plant.plant_date" />
+  </div>
+
+  <div class="flex1">
+    <label>Harvest Date:</label>&nbsp;<span>{{plant.harvest_date}}</span>
+  </div>
+
+  <div class="flex1">
+    <button type="button" (click)="addPlant()" [disabled]="disableAddButton">Plant</button>
+  </div>
+</div>
+
+<div *ngIf="showAddType">
+  <label>Seed Type:</label>&nbsp;
+  <input list="seedTypes" [(ngModel)]="seed.type">
+  <datalist id="seedTypes">
+    <option *ngFor="let t of seedTypes">{{t}}</option>
+  </datalist>
+  <label>Variety:</label>&nbsp; <input [(ngModel)]="seed.variety" />&nbsp;
+  <label>Days to Maturity</label>&nbsp; <input type="number" [(ngModel)]="seed.maturity_days" />
+  <button type="button" (click)="addSeed()">Add</button>
+</div>

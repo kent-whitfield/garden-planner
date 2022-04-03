@@ -1,10 +1,12 @@
 # sudo pip3 install Flask-PyMongo
 # sudo pip3 install pymongo[srv]
 # sudo pip3 install -U flask-cors
+# sudo pip3 install python-bsonjs
 
 from flask import Flask, request, json, jsonify
 from flask_pymongo import PyMongo
 from flask_cors import CORS
+from bson import json_util
 
 app = Flask(__name__)
 
@@ -39,16 +41,28 @@ def create_garden():
     return jsonify({"result": "ok"})
 
 
+@app.route('/update/garden', methods=['POST'])
+def update_garden():
+    data = request.get_json()
+    gardenQuery = {"user": data['user'], "name": data['name']}
+    newValue = {"$set": {"plants": data['plants']}}
+    oId = dbGardens.update_one(gardenQuery, newValue)
+    print(oId)
+    return jsonify({"result": "ok"})
+
+
 @app.route('/data/seeds')
 def show_data():
     allSeeds = list(dbSeeds.find({}, {"_id": 0}))
     return json.dumps(allSeeds)
 
 
-@app.route('/data/<int:id>/gardens')
-def show_gardens(id):
-    userGardens = list(dbGardens.find({"user": id}, {"_id": 0, "user": 0}))
+@app.route('/data/<string:user>/gardens')
+def show_gardens(user):
+    userGardens = list(dbGardens.find({"user": user}, {"_id": 0}))
+    #userGardens = list(dbGardens.find({"user": user}, {"user": 0}))
     return json.dumps(userGardens)
+    # return json_util.dumps(userGardens)
 
 
 if __name__ == '__main__':

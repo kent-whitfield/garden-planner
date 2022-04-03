@@ -4,7 +4,7 @@ import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
 import { Seed } from './model/seed';
-import { Garden, Plant } from './model/garden';
+import { Garden } from './model/garden';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,10 @@ export class DataService {
     return this.http.post(this.baseURL + "/create/seed", body, {headers});
   }
 
+  getUserGardens(user: string): Observable<any> {
+    return this.http.get(this.baseURL + "/data/" + user + '/gardens')
+  }
+
   setGarden(garden: Garden): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -42,5 +46,18 @@ export class DataService {
     const body = JSON.stringify(garden);
     console.log(body);
     return this.http.post(this.baseURL + '/create/garden', body, {headers});
+  }
+
+  updateGarden(garden: Garden): Observable<any> {
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'POST'
+    });
+
+    const body = JSON.stringify(garden)
+    return this.http.post(this.baseURL + '/update/garden', body, {headers})
   }
 }
