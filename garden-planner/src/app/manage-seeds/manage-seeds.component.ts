@@ -3,11 +3,11 @@ import { DataService } from '../data.service';
 import { Seed } from '../model/seed';
 
 @Component({
-  selector: 'app-add-seed',
-  templateUrl: './add-seed.component.html',
-  styleUrls: ['./add-seed.component.css']
+  selector: 'app-manage-seeds',
+  templateUrl: './manage-seeds.component.html',
+  styleUrls: ['./manage-seeds.component.css']
 })
-export class AddSeedComponent implements OnInit {
+export class ManageSeedsComponent implements OnInit {
   allSeeds: Seed[];
   seed = new Seed;
   loading: boolean = false;
@@ -15,7 +15,8 @@ export class AddSeedComponent implements OnInit {
 
   constructor(private dataService: DataService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   getSeeds() {
     this.loading = true;
