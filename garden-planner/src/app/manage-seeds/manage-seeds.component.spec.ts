@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddSeedComponent } from './add-seed.component';
+import { ManageSeedsComponent } from './manage-seeds.component';
 
-describe('AddSeedComponent', () => {
-  let component: AddSeedComponent;
-  let fixture: ComponentFixture<AddSeedComponent>;
+describe('ManageSeedsComponent', () => {
+  let component: ManageSeedsComponent;
+  let fixture: ComponentFixture<ManageSeedsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddSeedComponent ]
+      declarations: [ ManageSeedsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddSeedComponent);
+    fixture = TestBed.createComponent(ManageSeedsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
