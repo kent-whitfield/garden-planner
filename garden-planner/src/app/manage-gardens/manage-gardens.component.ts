@@ -18,15 +18,12 @@ export class ManageGardensComponent implements OnInit {
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
-    this.garden.user = "kentw@test.ca";
     this.getGardens();
    }
 
-
-
   getGardens() {
     this.gardensLoading = true;
-    this.dataService.getUserGardens("kentw@test.ca")
+    this.dataService.getUserGardens()
       .subscribe((response) => {
         this.allUserGardens = response;
         this.gardensLoading = false;

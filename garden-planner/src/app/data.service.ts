@@ -31,8 +31,11 @@ export class DataService {
     return this.http.post(this.baseURL + "/create/seed", body, {headers});
   }
 
-  getUserGardens(user: string): Observable<any> {
-    return this.http.get(this.baseURL + "/data/" + user + '/gardens')
+  getUserGardens(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + localStorage.getItem('auth_token')
+    })
+    return this.http.get(this.baseURL + "/data/gardens", {headers})
   }
 
   setGarden(garden: Garden): Observable<any> {
@@ -40,7 +43,8 @@ export class DataService {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'POST'
+      'Access-Control-Allow-Methods': 'POST',
+      'Authorization': 'Bearer ' + localStorage.getItem('auth_token')
     });
 
     const body = JSON.stringify(garden);
@@ -54,7 +58,8 @@ export class DataService {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'POST'
+      'Access-Control-Allow-Methods': 'POST',
+      'Authorization': 'Bearer ' + localStorage.getItem('auth_token')
     });
 
     const body = JSON.stringify(garden)
