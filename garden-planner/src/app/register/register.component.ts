@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { sample } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { AnnounceService } from '../announce.service';
+
+import { AuthService } from '../services/auth.service';
+import { AnnounceService } from '../services/announce.service';
+
 import { User } from '../model/user';
 
 @Component({

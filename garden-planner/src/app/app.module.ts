@@ -7,11 +7,11 @@ import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 
-import { DataService } from './data.service';
-import { AuthService } from './auth.service';
-import { EnsureAuthenticatedService } from './ensure-authenticated.service';
-import { LoginRedirectService } from './login-redirect.service';
-import { AnnounceService } from './announce.service';
+import { DataService } from './services/data.service';
+import { AuthService } from './services/auth.service';
+import { EnsureAuthenticatedService } from './services/ensure-authenticated.service';
+import { LoginRedirectService } from './services/login-redirect.service';
+import { AnnounceService } from './services/announce.service';
 
 import { ManageGardensComponent } from './manage-gardens/manage-gardens.component';
 import { GardenViewComponent } from './garden-view/garden-view.component';

@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
+
 import { Garden, Plant } from '../model/garden';
 import { Seed } from '../model/seed';
 

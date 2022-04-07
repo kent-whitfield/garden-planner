@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AnnounceService } from '../announce.service';
+
+import { AnnounceService } from '../services/announce.service';
 
 @Component({
   selector: 'app-menu',
