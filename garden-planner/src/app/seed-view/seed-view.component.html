@@ -1,0 +1,40 @@
+<hr>
+<div class="grid-container">
+
+  <div>
+    <div *ngIf="!editMode; else editType">
+      {{seed.type}}
+    </div>
+    <ng-template #editType>
+      <label>Type:</label>&nbsp;<input [(ngModel)]="seed.type">
+    </ng-template>
+  </div>
+
+  <div>
+    <div *ngIf="!editMode; else editVariety">
+      {{seed.variety}}
+    </div>
+    <ng-template #editVariety>
+      <label>Variety:</label>&nbsp;<input [(ngModel)]="seed.variety" />
+    </ng-template>
+  </div>
+
+  <div>
+    <div *ngIf="!editMode; else editDays">
+      {{seed.maturity_days}}
+    </div>
+    <ng-template #editDays>
+      <label>Maturity Days:</label>&nbsp;<input type="number" [(ngModel)]="seed.maturity_days" />
+    </ng-template>
+  </div>
+
+  <div>
+    <div *ngIf="!editMode; else editDone">
+      <button type="button" (click)="editMode=true">Edit</button>&nbsp;
+      <button type="button" (click)="removeSeed()">Delete</button>
+    </div>
+    <ng-template #editDone>
+      <button type="button" (click)="editSeed()">Done</button>
+    </ng-template>
+  </div>
+</div>

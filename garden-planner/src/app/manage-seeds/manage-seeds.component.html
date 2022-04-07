@@ -1,13 +1,17 @@
 <div>
-  <label>Seed Type:</label>&nbsp; <input [(ngModel)]="seed.type" /><br />
-  <label>Variety:</label>&nbsp; <input [(ngModel)]="seed.variety" /><br />
-  <label>Days to Maturity</label>&nbsp; <input type="number" [(ngModel)]="seed.maturity_days" /><br />
-  <p></p>
-</div>
-<div class="form-group">
-  <button type="button" (click)="addSeed()">Add Seed</button>&nbsp;
-  <button type="button" (click)="getSeeds()">Get Seeds</button>
-  <p></p>
+  <h2>Seed Collection</h2>
+  <div class="clickable" (click)="showAddSeed=!showAddSeed">
+    <span *ngIf="showAddSeed; else plus">-</span>
+    <ng-template #plus>+</ng-template>
+    Add Seed to Collection
+  </div>
+
+  <div *ngIf="showAddSeed">
+    <label>Seed Type:</label>&nbsp; <input [(ngModel)]="seed.type" /><br />
+    <label>Variety:</label>&nbsp; <input [(ngModel)]="seed.variety" /><br />
+    <label>Days to Maturity</label>&nbsp; <input type="number" [(ngModel)]="seed.maturity_days" /><br />
+    <button type="button" (click)="addSeed()">Add Seed</button><br />
+  </div>
 </div>
 
 <div *ngIf="loading">Loading...</div>
@@ -16,6 +20,13 @@
   <strong>Warning!</strong>{{errMsg | json}}
 </div>
 
+<div *ngFor="let s of allSeeds">
+  <app-seed-view (refreshSeeds)="getSeeds()" [seed]="s" [allSeeds]="allSeeds"></app-seed-view>
+</div>
+
+<hr>
+
+<!--
 <table class="table table-striped">
   <thead>
     <tr>
@@ -36,3 +47,4 @@
 <pre>
   {{allSeeds | json}}
 </pre>
+-->

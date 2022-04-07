@@ -12,10 +12,12 @@ export class ManageSeedsComponent implements OnInit {
   seed = new Seed;
   loading: boolean = false;
   errMsg: string;
+  showAddSeed: boolean = false;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
+    this.getSeeds();
   }
 
   getSeeds() {
@@ -34,6 +36,7 @@ export class ManageSeedsComponent implements OnInit {
       .subscribe(data => {
         console.log(data);
         this.getSeeds();
+        this.showAddSeed = false;
       })
   }
 }

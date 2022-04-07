@@ -7,7 +7,6 @@
 
 # Activate venv: .venv\scripts\activate
 
-from re import L
 from flask import Flask, request, json, jsonify
 from flask_pymongo import PyMongo
 from flask_cors import CORS
@@ -94,9 +93,26 @@ def user_login():
 
 @app.route('/create/seed', methods=['POST'])
 def create_seed():
-    x = data = request.get_json()
-    oID = dbSeeds.insert_one(x)
+    data = request.get_json()
+    oID = dbSeeds.insert_one(data)
     print(oID)
+    return jsonify({"result": "ok"})
+
+
+@app.route('/update/seed', methods=['POST'])
+def update_seed():
+    data = request.get_json()
+    seedQuery = {"_id": ObjectId(oid=str(data['_id']['$oid']))}
+    newValue = {"$set": {
+        "type": data['type'], "variety": data['variety'], "maturity_days": data['maturity_days']}}
+    oid = dbSeeds.update_one(seedQuery, newValue)
+    return jsonify({"result": "ok"})
+
+
+@app.route('/delete/seed', methods=['POST'])
+def delete_seed():
+    data = request.get_json()
+    oid = dbSeeds.delete_one({"_id": ObjectId(oid=str(data['_id']['$oid']))})
     return jsonify({"result": "ok"})
 
 
@@ -123,8 +139,8 @@ def update_garden():
 
 @app.route('/data/seeds')
 def show_data():
-    allSeeds = list(dbSeeds.find({}, {"_id": 0}))
-    return json.dumps(allSeeds)
+    allSeeds = list(dbSeeds.find({}, {}).sort("type"))
+    return json_util.dumps(allSeeds)
 
 
 @app.route('/data/gardens')
