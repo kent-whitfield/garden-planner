@@ -20,6 +20,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { SeedViewComponent } from './seed-view/seed-view.component';
 
 const routes: Routes = [
   {path: '', component: ManageGardensComponent, canActivate: [EnsureAuthenticatedService]},
@@ -40,7 +41,8 @@ const routes: Routes = [
     PageNotFoundComponent,
     MenuComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SeedViewComponent
   ],
   imports: [
     BrowserModule,

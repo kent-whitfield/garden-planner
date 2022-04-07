@@ -31,6 +31,30 @@ export class DataService {
     return this.http.post(this.baseURL + "/create/seed", body, {headers});
   }
 
+  updateSeed(seed: Seed): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'POST'
+    });
+
+    const body = JSON.stringify(seed);
+    return this.http.post(this.baseURL + '/update/seed', body, {headers});
+  }
+
+  deleteSeed(seed: Seed): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'POST'
+    });
+
+    const body = JSON.stringify(seed);
+    return this.http.post(this.baseURL + '/delete/seed', body, {headers})
+  }
+
   getUserGardens(): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization': 'Bearer ' + localStorage.getItem('auth_token')

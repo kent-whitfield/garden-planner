@@ -67,8 +67,8 @@
   <input list="seedTypes" [(ngModel)]="seed.type">
   <datalist id="seedTypes">
     <option *ngFor="let t of seedTypes">{{t}}</option>
-  </datalist>
+  </datalist>&nbsp;
   <label>Variety:</label>&nbsp; <input [(ngModel)]="seed.variety" />&nbsp;
-  <label>Days to Maturity</label>&nbsp; <input type="number" [(ngModel)]="seed.maturity_days" />
+  <label>Days to Maturity</label>&nbsp; <input type="number" [(ngModel)]="seed.maturity_days" />&nbsp;
   <button type="button" (click)="addSeed()">Add</button>
 </div>
