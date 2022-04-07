@@ -3,8 +3,8 @@ import {HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 
-import { Seed } from './model/seed';
-import { Garden } from './model/garden';
+import { Seed } from '../model/seed';
+import { Garden } from '../model/garden';
 
 @Injectable({
   providedIn: 'root'
