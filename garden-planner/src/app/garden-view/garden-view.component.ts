@@ -107,6 +107,7 @@ export class GardenViewComponent implements OnInit {
 
   addPlant() {
     this.garden.plants.push(this.plant)
+    this.garden.plants = this.garden.plants.sort((a, b) => {return Date.parse(a.harvest_date) - Date.parse(b.harvest_date)})
     this.plant = new Plant
     this.plant.plant_date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.dataService.updateGarden(this.garden)
