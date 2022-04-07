@@ -5,18 +5,18 @@
 <table *ngIf="garden.plants.length" class="table">
   <thead>
     <tr>
+      <th>Harvest Date</th>
       <th>Type</th>
       <th>Variety</th>
       <th>Plant Date</th>
-      <th>Harvest Date</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let p of garden.plants">
+      <td>{{p.harvest_date}}</td>
       <td>{{p.seed.type}}</td>
       <td>{{p.seed.variety}}</td>
       <td>{{p.plant_date}}</td>
-      <td>{{p.harvest_date}}</td>
     </tr>
   </tbody>
 </table>
