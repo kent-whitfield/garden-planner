@@ -7,17 +7,26 @@ import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 
-import {DataService} from './data.service';
+import { DataService } from './data.service';
+import { AuthService } from './auth.service';
+import { EnsureAuthenticatedService } from './ensure-authenticated.service';
+import { LoginRedirectService } from './login-redirect.service';
+import { AnnounceService } from './announce.service';
+
 import { ManageGardensComponent } from './manage-gardens/manage-gardens.component';
 import { GardenViewComponent } from './garden-view/garden-view.component';
 import { ManageSeedsComponent } from './manage-seeds/manage-seeds.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MenuComponent } from './menu/menu.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  {path: '', component: ManageGardensComponent},
-  {path: 'seeds', component: ManageSeedsComponent},
-  {path: 'gardens', component: ManageGardensComponent},
+  {path: '', component: ManageGardensComponent, canActivate: [EnsureAuthenticatedService]},
+  {path: 'seeds', component: ManageSeedsComponent, canActivate: [EnsureAuthenticatedService]},
+  {path: 'gardens', component: ManageGardensComponent, canActivate: [EnsureAuthenticatedService]},
+  {path: 'login', component: LoginComponent, canActivate: [LoginRedirectService]},
+  {path: 'register', component: RegisterComponent, canActivate: [LoginRedirectService]},
   {path: '404', component: PageNotFoundComponent},
   {path: '**', redirectTo: '/404'}
 ]
@@ -29,7 +38,9 @@ const routes: Routes = [
     GardenViewComponent,
     ManageSeedsComponent,
     PageNotFoundComponent,
-    MenuComponent
+    MenuComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +50,11 @@ const routes: Routes = [
   ],
   providers: [
     DataService,
-    DatePipe
+    DatePipe,
+    AuthService,
+    EnsureAuthenticatedService,
+    LoginRedirectService,
+    AnnounceService
   ],
   bootstrap: [AppComponent]
 })

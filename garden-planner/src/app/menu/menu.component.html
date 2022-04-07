@@ -7,24 +7,31 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item active" *ngIf="!loggedIn">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      <li class="nav-item active" *ngIf="!loggedIn">
+        <a class="nav-link" href="/register">Register</a>
+      </li>
+      <li class="nav-item active" *ngIf="loggedIn">
         <a class="nav-link" href="/seeds">Seed Collection</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Manage Gardens</a>
+      <li class="nav-item active" *ngIf="loggedIn">
+        <a class="nav-link" href="/gardens">Manage Gardens</a>
       </li>
-
-
+      <li class="nav-item active" *ngIf="loggedIn">
+        <a class="nav-link nav-click" (click)="logoutUser()">Log Out</a>
+      </li>
 
       <!--
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          Admin
+          User
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/rooms">Rooms</a>
-          <a class="dropdown-item" href="/users">Users</a>
+          <a class="dropdown-item" href="/login">Login</a>
+          <a class="dropdown-item" href="/register">Register</a>
 
         </div>
       </li>
